@@ -14,7 +14,7 @@
             color: #fff;
             padding: 20px;
             margin-bottom: 20px;
-            transition: all .5s;
+            transition: all .75s;
         }
         .main-header.fixed {
             position: fixed;
@@ -45,11 +45,11 @@
     window.addEventListener('scroll', function() {
         let pos_scroll = html.scrollTop;
 
-        if ( pos_scroll > 100 && ! menu_top.classList.contains('show') ) {
+        if ( pos_scroll > 150 && ! menu_top.classList.contains('show') ) {
             menu_top.className += ' show';
         }
 
-        if ( pos_scroll < 100 && menu_top.classList.contains('show') ) {
+        if ( pos_scroll < 150 && menu_top.classList.contains('show') ) {
             menu_top.className = original_class;
         }
     });
