@@ -1,0 +1,105 @@
+<html>
+<head>
+	<style>
+		.ul-select {
+			position: relative;
+			margin: 0 10px;
+			min-width: 250px;
+		}
+		.ul-select:hover ul {
+			display: block;
+		}
+		.ul-select > span {
+			position: relative;
+			padding: 9px 50px 10px 10px;
+			height: 45px;
+			border: solid 1px #ccc;
+			border-radius: 5px;
+			display: block;
+			cursor: pointer;
+		}
+		.ul-select > span::after {
+			position: absolute;
+			top: 14px;
+			right: 10px;
+			width: 10px;
+			height: 10px;
+			content: "";
+			border-bottom: solid 1px #333;
+			border-left: solid 1px #333;
+			transform: rotate(-45deg);
+			transition: all .25s;
+		}
+		.ul-select:hover > span::after {
+			top: 19px;
+			transform: rotate(135deg);
+		}
+
+		.ul-select ul {
+			display: none;
+			width: 100%;
+			background-color: #fff;
+			position: absolute;
+			top: 45px;
+			left: 0;
+			z-index: 10;
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+			border: solid 1px #ccc;
+		}
+		.ul-select ul li.item-active {
+			background-color: #f3f3f3;
+			color: #555;
+			padding: 10px;
+		}
+		.ul-select ul li a {
+			display: block;
+			transition: all .25s;
+			padding: 10px;
+		}
+		.ul-select ul li a:hover {
+			background-color: #f3f3f3;
+			color: #555;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$ = jQuery.noConflict();
+
+		$(document).ready(function(){
+			$('.ul-select').on('click', 'a', function(e){
+				e.preventDefault();
+
+				let item_id = $(this).data('for');
+				let item_value = $(this).text();
+
+				$('#' + item_id + ' input[type="hidden"]').val(item_value);
+				$('#' + item_id + ' .item-value').text(item_value);
+				
+				let item_old = $('#' + item_id + ' .item-active');
+				let item_old_text = item_old.text();
+				item_old.html('<a href="" data-for="'+ item_id +'">' + item_old_text + '</a>');
+				item_old.removeClass('item-active');
+
+				let item_new = $(this).parent();
+				item_new.empty();
+				item_new.addClass('item-active');
+				item_new.text( item_value );
+			})
+		});
+	</script>
+</head>
+<body>
+	<div id="filter-intensity" class="ul-select">
+		<input type="hidden" id="filter-intensity-value" value="">
+		<span class="item-selected">Intensidad: <span class="item-value">Cualquiera</span></span>
+		<ul>
+			<li class="item-active">Cualquiera</li>
+			<li><a href="" data-for="filter-intensity">Baja</a></li>
+			<li><a href="" data-for="filter-intensity">Moderada</a></li>
+			<li><a href="" data-for="filter-intensity">Alta</a></li>
+		</ul>
+	</div>	
+</body>
+</html>
