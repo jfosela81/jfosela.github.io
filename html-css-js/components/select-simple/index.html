@@ -6,9 +6,6 @@
 			margin: 0 10px;
 			min-width: 250px;
 		}
-		.ul-select:hover ul {
-			display: block;
-		}
 		.ul-select > span {
 			position: relative;
 			padding: 9px 50px 10px 10px;
@@ -68,6 +65,12 @@
 		$ = jQuery.noConflict();
 
 		$(document).ready(function(){
+			$('.ul-select').on('mouseover', function(e){
+				$('ul', this).show();
+			});
+			$('.ul-select').on('mouseout', function(e){
+				$('ul', this).hide();
+			});
 			$('.ul-select').on('click', 'a', function(e){
 				e.preventDefault();
 
@@ -86,7 +89,9 @@
 				item_new.empty();
 				item_new.addClass('item-active');
 				item_new.text( item_value );
-			})
+
+				$('#' + item_id + ' ul').hide();
+			});
 		});
 	</script>
 </head>
